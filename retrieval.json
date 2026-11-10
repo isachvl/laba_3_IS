@@ -1,0 +1,1 @@
+{"bm25":{"k1":1.2,"b":0.75},"rrf_constant":60,"depth":20,"ce":"cross-encoder/ms-marco-MiniLM-L6-v2","ce_max_length":512,"generation_k":3,"budget":2048}
