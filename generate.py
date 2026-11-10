@@ -45,6 +45,8 @@ def main():
                     f.write(json.dumps(row,ensure_ascii=False)+'\n')
                     f.flush()
                     print(args.split,method,i,len(rankings),row['status'],flush=True)
+        exp.meta['status']='completed'
+        save_json(OUT/args.split/'runtime.json',exp.meta)
     finally:
         if exp.builder: exp.builder.http.close()
         exp.client.close()

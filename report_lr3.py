@@ -84,6 +84,13 @@ def main():
             detail=', '.join(f"{x['doc_id']} (#{x['rank']}"+ (f", D={x['contributions']['dense']:.4f}, B={x['contributions']['bm25']:.4f}" if m=='rrf' else '')+')' for x in entries)
             p(names[m]+': '+detail,compact)
         p('Обоснование передано: '+', '.join(f"{names[m]} — {'да' if ok else 'нет'}" for m,ok in t['evidence'].items())+'.',compact)
+        if g['evidence']:
+            stages=[]
+            for m,present in t['evidence'].items():
+                found=bool(set(g['evidence']) & {x['doc_id'] for x in r[m][:3]})
+                state='обоснование в промпте' if present else ('потеря при сборке' if found else 'нет нужного документа в top-3')
+                stages.append(names[m]+' — '+state)
+            p('Этап: '+', '.join(stages)+'.',compact)
         for m,a in t['answers'].items():
             p(names[m]+' → '+str(a['raw_response']).replace('\n',' ')+'; переданы '+str(a['transmitted']),compact)
         md.extend(['',f"## {labels[t['case']]} — ID {r['id']}",'',r['claim'],'','```json',json.dumps(t,ensure_ascii=False,indent=2),'```'])
@@ -95,6 +102,10 @@ def main():
         p(f'{split}: {names[alternative]} относительно Dense изменил Accuracy на {delta:+.1f} п.п.')
     delta=s['generation']['holdout'][winner]['accuracy']-s['generation']['holdout']['dense']['accuracy']
     p(('На holdout выше Accuracy у '+names[winner]+'.') if delta>0 else 'По Accuracy на holdout нет основания заменять Dense.')
+    h=s['generation']['holdout']
+    slow=s['timings'][winner]['median_ms']/s['timings']['dense']['median_ms']
+    noinfo=100*(h[winner]['class_recall']['NOINFO']-h['dense']['class_recall']['NOINFO'])
+    p(f'На holdout выигрыш составил {len(s["paired"]["holdout"]["fixed"])-len(s["paired"]["holdout"]["broken"])} ответа из 210. Полнота NOINFO изменилась на {noinfo:+.1f} п.п. Медиана поиска на dev больше в {slow:.1f} раза. При приоритете скорости разумно оставить Dense.',compact)
     p('Итоговый выбор оценивается на holdout после фиксации параметров. Метрики поиска и доставки обоснования помогают отделить эффект ранжирования от ошибок модели.')
     p('Файлы для проверки',heading)
     p('selection.json хранит правило и выбранный вариант. manifest.json хранит данные и ревизии. Списки dev и holdout, полные ответы и summary.json находятся в results. В traces.md есть переданные предложения и ответы для четырёх случаев.')
