@@ -22,8 +22,12 @@ def main():
     for name in ['config.yaml','schema.json','prompts/rag.txt','prompts/llm_only.txt']:
         if name=='config.yaml': continue
         assert sha(LR2/name)==sha(previous/name),name
+    expected_ids={r['id'] for r in rankings}
+    paths=[OUT/args.split/f'{method}.jsonl' for method in methods]
+    if all(path.exists() and {r['id'] for r in read_jsonl(path)}==expected_ids for path in paths):
+        print(f'{args.split}: all measured responses are already saved')
+        return
     exp=Experiment(str(OUT/args.split))
-    exp.config.update(server_exe='../lab1/bin/llama/llama-server.exe',model_path='../lab1/models/Qwen_Qwen3-4B-Instruct-2507-Q4_K_M.gguf')
     try:
         exp.start_server()
         original=json.loads((previous/'metadata.json').read_text(encoding='utf-8'))

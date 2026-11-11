@@ -1,0 +1,28 @@
+{
+  "started": "2026-11-11T03:14:49.864475+07:00",
+  "status": "completed",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+  "profile": "LR1 Qwen GGUF; llama.cpp b12110 CPU, 8 threads; port 8082",
+  "generation": {
+    "temperature": 0,
+    "max_tokens": 128,
+    "seed": 42,
+    "cache_prompt": false
+  },
+  "source_hashes": {
+    "analyze.py": "cefa243194af95cd11def3486ab81e0b43314806ddca282d6c8414c2dc69b649",
+    "build_index.py": "8adbbb950de27b4845e2296250b7df52930c3db26faf70e3c7f5ae920b8bdcfe",
+    "common.py": "3697962d9f3642b9d02a120358624132f47949f1cd1ce309c07406ddc94134fe",
+    "download_runtime.py": "7129406ac53bba139c6385827e30bb8b9ed9f45d1b230bf9195cdb459cf07e30",
+    "evaluation.py": "2e3ccdbe8701d7db2c58367ad3a9f4e3dae6df8868fc46424fb580871536ceb1",
+    "experiment.py": "bd8328b1508dde82e3198212e62d863c8ff0ae7d70a3ed0fe7b8b6e16cdb43bc",
+    "make_report.py": "07532861045f5ab0b2a124283a87c1ab58b78989d9b74a275493b4dc100bb8e7",
+    "prepare_data.py": "e91d25264a061b45a57cf52d4e7944cc3e951ff0bec553a4356872fffd7cbf64",
+    "prepare_laptop.py": "cf6529d340c365b25fd3099787837ea8312f5a50e2476daee883aa66aa762c7a",
+    "rag.py": "c49e10c5be80946198eed11efac093f2da2f27d25d42741b5d0f1f5fbcd1ac89",
+    "run_all.py": "698c2d7065dfe65a233b11d0cce579c1b7e0b1b5fc7d02d636dba91897ae9209",
+    "test_rag.py": "1fe11754ca42d9f27353596ca6c61b7e494302f4221a457c73c6e38395947e0f"
+  },
+  "model_sha256": "2fde00ce69dd4899c70d020845e2638353015bba0fdf161b3eb965f2bca4464e"
+}

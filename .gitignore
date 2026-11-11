@@ -1,4 +1,6 @@
 __pycache__/
-results/
-report.pdf
-traces.md
+.venv/
+results/report_preview/
+mlflow.db*
+mlruns/
+mlartifacts/
